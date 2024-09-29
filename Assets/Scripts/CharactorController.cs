@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharactorController : MonoBehaviour
@@ -8,13 +11,13 @@ public class CharactorController : MonoBehaviour
     [SerializeField] private Rigidbody2D rigi;
     [SerializeField] private Collider2D cld;
     [SerializeField] private SpriteRenderer sprite;
-
-
-    public float moveForce = 60f;
-    public float jumpForce = 270f;
-    bool jump = false;
+    [SerializeField] private Animator anim;
     [SerializeField] private Transform Camera;
 
+    public float moveForce = 100f;
+    public float jumpForce = 270f;
+    bool jump = false;
+    bool isOnGround = false;
 
     void Awake()
     {
@@ -32,6 +35,7 @@ public class CharactorController : MonoBehaviour
         rigi = GetComponent<Rigidbody2D>();
         cld = GetComponent<Collider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -39,6 +43,7 @@ public class CharactorController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W))
         {
             jump = true;
+            isOnGround = false;
         }
     }
     void FixedUpdate()
@@ -49,7 +54,13 @@ public class CharactorController : MonoBehaviour
     }
     void SetCameraFollow()
     {
-
+        Vector3 playerPos = transform.position;
+        playerPos.y = Camera.position.y;
+        playerPos.z = -10;
+        if (playerPos.x >= 0)
+        {
+            Camera.position = playerPos;
+        }
     }
     private void Run()
     {
@@ -63,9 +74,11 @@ public class CharactorController : MonoBehaviour
         {
             sprite.flipX = true;
         }
+        anim.SetFloat("Running", Math.Abs(moveX));
     }
     private void Jump()
     {
+        anim.SetBool("Jump", !isOnGround);
         if (OnGround())
         {
             if (jump)
@@ -95,5 +108,12 @@ public class CharactorController : MonoBehaviour
         }
         Debug.DrawRay(startPos, Vector2.down * rayLength, colorRay);
         return hit.collider != null;
+    }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+        }
     }
 }
