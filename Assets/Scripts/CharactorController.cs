@@ -14,8 +14,8 @@ public class CharactorController : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Transform Camera;
 
-    public float moveForce = 100f;
-    public float jumpForce = 270f;
+    public float moveForce = 150f;
+    public float jumpForce = 250f;
     bool jump = false;
     bool isOnGround = false;
 
@@ -111,7 +111,7 @@ public class CharactorController : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag(StringConstant.Tags.GROUND))
         {
             isOnGround = true;
         }
