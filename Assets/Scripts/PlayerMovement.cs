@@ -5,9 +5,8 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CharactorController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    public static CharactorController Instance { get; private set; }
     [SerializeField] private Rigidbody2D rigi;
     [SerializeField] private Collider2D cld;
     [SerializeField] private SpriteRenderer sprite;
@@ -19,17 +18,6 @@ public class CharactorController : MonoBehaviour
     bool jump = false;
     bool isOnGround = false;
 
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     void Start()
     {
         rigi = GetComponent<Rigidbody2D>();

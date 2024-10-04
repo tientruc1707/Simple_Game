@@ -1523,7 +1523,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.09375, y: 1.25}
+    oldSize: {x: 1.09375, y: 1.5}
     newSize: {x: 2.1875, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1549,8 +1549,8 @@ MonoBehaviour:
   sprite: {fileID: 1760323547}
   anim: {fileID: 1760323546}
   Camera: {fileID: 519420032}
-  moveForce: 100
-  jumpForce: 270
+  moveForce: 150
+  jumpForce: 250
 --- !u!1 &1902310789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,7 +1733,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1001 &6579161819639465967
+--- !u!1001 &374857495633879279
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1741,61 +1741,65 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2242041966888552446, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+      propertyPath: m_Name
+      value: Boar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387943703421295718, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387943703421295718, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.12
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.48
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3488862555746632927, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+    - target: {fileID: 2654553254766601075, guid: 9660b426378184547ae14a46cafe049e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3777096448676580635, guid: 9660b426378184547ae14a46cafe049e, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: f53d8c1139d2f6a42955cc5b90c88bb3, type: 2}
-    - target: {fileID: 4593474935459833622, guid: 9660b426378184547ae14a46cafe049e, type: 3}
-      propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.55
+    - target: {fileID: 5905477085261915906, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4593474935459833622, guid: 9660b426378184547ae14a46cafe049e, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5614206485041372457, guid: 9660b426378184547ae14a46cafe049e, type: 3}
-      propertyPath: m_Name
-      value: Boar
+    - target: {fileID: 5905477085261915906, guid: 9660b426378184547ae14a46cafe049e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1809,7 +1813,7 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1742588541}
   - {fileID: 1760323548}
-  - {fileID: 6579161819639465967}
+  - {fileID: 374857495633879279}
   - {fileID: 1357761508}
   - {fileID: 1601880034}
   - {fileID: 1629907559}

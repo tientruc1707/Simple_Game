@@ -13,5 +13,12 @@ public static class StringConstant
     {
         public const string GROUND = "Ground";
         public const string PLAYER = "Player";
+        public const string TRAP = "Trap";
+    }
+
+    public static class Scores
+    {
+        public const string HIGHSCORE = "HighScore";
+        public const string CURRENTSCORE = "CurrentScore";
     }
 }
