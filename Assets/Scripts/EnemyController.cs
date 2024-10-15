@@ -28,10 +28,5 @@ public class EnemyController : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        IPlayer player = other.gameObject.GetComponent<IPlayer>();
-        if (player != null)
-        {
-            
-        }
     }
 }

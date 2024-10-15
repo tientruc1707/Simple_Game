@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerSurvival : MonoBehaviour, IDamage, IPlayer
+public class PlayerSurvival : MonoBehaviour
 {
     public static PlayerSurvival Instance { get; private set; }
     public float currentDamage;
     public float maxHealth;
     public float currentHealth;
-
-    public float Damage { get => currentDamage; }
-    public string IsPlayer { get; set; }
-
 
     void Awake()
     {
@@ -36,9 +32,4 @@ public class PlayerSurvival : MonoBehaviour, IDamage, IPlayer
     {
 
     }
-    void IDamage.TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-    }
-
 }

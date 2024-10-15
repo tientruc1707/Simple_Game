@@ -4,11 +4,6 @@ using UnityEngine;
 
 public static class StringConstant
 {
-    public static class Scenes
-    {
-        public const string PAUSE = "PauseGame";
-        public const string MAIN_MENU = "MainMenu";
-    }
     public static class Tags
     {
         public const string GROUND = "Ground";
@@ -16,9 +11,15 @@ public static class StringConstant
         public const string TRAP = "Trap";
     }
 
-    public static class Scores
+    public static class GameState
     {
-        public const string HIGHSCORE = "HighScore";
-        public const string CURRENTSCORE = "CurrentScore";
+        public const string MAINMENU = "MainMenu";
+        public const string PAUSEGAME = "PauseGame";
+        public const string PLAYING = "Playing";
+        public const string GAMEOVER = "GameOver";
+        public const string WINGAME = "WinGame";
+        public const string TROPHY = "TrophyUI";
+        public const string SETTING = "SettingUI";
+        public const string SELECTLEVEL = "SelectLevelUI";
     }
 }

@@ -43,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
     void SetCameraFollow()
     {
         Vector3 playerPos = transform.position;
-        playerPos.y = Camera.position.y;
         playerPos.z = -10;
         if (playerPos.x >= 0)
         {
@@ -83,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         float rayLength = 1f;
         Vector2 startPos = (Vector2)transform.position - new Vector2(0, cld.bounds.extents.y);
         Ray ray = new(transform.position, transform.forward);
-        int layerMask = LayerMask.GetMask("Ground");
+        int layerMask = LayerMask.GetMask(StringConstant.Tags.GROUND);
         RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, rayLength, layerMask);
 
         if (hit.collider != null)
