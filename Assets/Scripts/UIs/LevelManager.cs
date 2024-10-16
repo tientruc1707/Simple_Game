@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private Button[] buttons;
+    public bool IsUnlock { get; set; }
+    [SerializeField] private int _currentLevel;
     void Start()
     {
         for (int i = 0; i < buttons.Length; ++i)
@@ -16,21 +18,22 @@ public class LevelManager : MonoBehaviour
             buttons[i].onClick.AddListener(() => LoadLevel(lv));
         }
     }
-    private void LoadLevel(string name)
+    private void LoadLevel(string lv)
     {
-        SceneManager.LoadScene("Level " + name);
+        SceneManager.LoadScene("Level " + lv);
+    }
+    public void LoadNextLevel()
+    {
+        _currentLevel++;
+        SceneManager.LoadScene("Level " + _currentLevel.ToString());
     }
     void OnDrawGizmosSelected()
     {
         buttons = GetComponentsInChildren<Button>();
         for (int i = 0; i < buttons.Length; ++i)
         {
-            Text lvText = buttons[i].GetComponentInChildren<Text>();
-            lvText.text = (i + 1).ToString();
-            lvText.fontSize = 80;
-            lvText.fontStyle = FontStyle.Bold;
-            lvText.alignByGeometry = true;
-            buttons[i].name = "Level " + lvText;
+            buttons[i].name = "Level " + (i + 1).ToString();
+            IsUnlock = false;
         }
     }
 }

@@ -6,42 +6,38 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
-    public enum GameState { Playing, Pause, GameOver }
-    public GameState CurrentState { get; private set; }
     public int Score { get; private set; }
-    public int CurrentLevel { get; private set; }
+    public int _maxPlayerHealth = 100;
+    public int Health { get; private set; }
+
+
     void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-    }
-    public void PauseGame()
-    {
-        if (CurrentState == GameState.Playing)
+        else
         {
-            CurrentState = GameState.Pause;
-            Time.timeScale = 0;
+            Destroy(gameObject);
         }
+        Score = 0;
+        Health = _maxPlayerHealth;
     }
-    public void GameOver()
-    {
-        CurrentState = GameState.GameOver;
-    }
-    public void AddScore(int point)
+    public void UpdateScore(int point)
     {
         Score += point;
+        UIManager.Instance.UpdateScore(Score);
     }
-    public void LoadNextLevel()
+    public void UpdateHealth(float dmg)
     {
-        CurrentLevel++;
-        SceneManager.LoadScene("Level " + CurrentLevel.ToString());
+        if (Health >= 0)
+            Health -= (int)dmg;
+        UIManager.Instance.UpdateHealth(Health, _maxPlayerHealth);
+        //         if (Health <= 0)
+        //         {
+        //              GameOver();
+        //         }
     }
 }

@@ -11,11 +11,6 @@ public class EnemyController : MonoBehaviour
     public float health;
     public float damage;
 
-    void Awake()
-    {
-        health = 50;
-        damage = 10;
-    }
     void Start()
     {
         rigi = GetComponent<Rigidbody2D>();
@@ -28,5 +23,9 @@ public class EnemyController : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag(StringConstant.ObjectTags.PLAYER))
+        {
+            GameManager.Instance.UpdateHealth(this.damage);
+        }
     }
 }

@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         float rayLength = 1f;
         Vector2 startPos = (Vector2)transform.position - new Vector2(0, cld.bounds.extents.y);
         Ray ray = new(transform.position, transform.forward);
-        int layerMask = LayerMask.GetMask(StringConstant.Tags.GROUND);
+        int layerMask = LayerMask.GetMask(StringConstant.ObjectTags.GROUND);
         RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, rayLength, layerMask);
 
         if (hit.collider != null)
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag(StringConstant.Tags.GROUND))
+        if (other.gameObject.CompareTag(StringConstant.ObjectTags.GROUND))
         {
             isOnGround = true;
         }
