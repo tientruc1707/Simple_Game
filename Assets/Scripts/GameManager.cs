@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateHealth(float dmg)
     {
-        if (Health >= 0)
+        if (Health > 0)
             Health -= (int)dmg;
         UIManager.Instance.UpdateHealth(Health, _maxPlayerHealth);
         //         if (Health <= 0)

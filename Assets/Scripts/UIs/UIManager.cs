@@ -10,14 +10,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _healthText;
     [SerializeField] private Slider _healthBar;
 
-
+    private void Start()
+    {
+        _healthBar.value = GameManager.Instance.Health;
+        _healthBar.maxValue = GameManager.Instance._maxPlayerHealth;
+        _healthText.text = _healthBar.value + "/" + _healthBar.maxValue;
+        _scoreText.text = "Score: " + GameManager.Instance.Score.ToString();
+    }
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -30,7 +36,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateHealth(int _currentHealth, int _maxHealth)
     {
+        _healthBar.value = _currentHealth;
         _healthText.text = _currentHealth + "/" + _maxHealth;
-        _healthBar.value = (float)_currentHealth / _maxHealth;
     }
 }

@@ -12,7 +12,9 @@ public class GameController : MonoBehaviour
     }
     void Update()
     {
-        gameManager.UpdateScore(10);
-        gameManager.UpdateHealth(10);
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            gameManager.UpdateHealth(10);
+        }
     }
 }

@@ -14,13 +14,7 @@ public static class StringConstant
 
     public static class GameState
     {
-        public const string MAINMENU = "MainMenu";
-        public const string PAUSEGAME = "PauseGame";
-        public const string PLAYING = "Playing";
-        public const string GAMEOVER = "GameOver";
-        public const string WINGAME = "WinGame";
-        public const string TROPHY = "TrophyUI";
-        public const string SETTING = "SettingUI";
-        public const string SELECTLEVEL = "SelectLevelUI";
+        public const string MAINMENU = "Main Menu";
+
     }
 }
