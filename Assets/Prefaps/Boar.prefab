@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8930615550403718259}
   - component: {fileID: 1960397074523328573}
   - component: {fileID: 2997970004800691105}
+  - component: {fileID: 8949239782341532467}
   m_Layer: 0
   m_Name: Boar
   m_TagString: Untagged
@@ -180,3 +181,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8949239782341532467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2242041966888552446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9241d9cb90ad5499cdc8b3852d074e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigi: {fileID: 2997970004800691105}
+  cld: {fileID: 1960397074523328573}
+  spriteRenderer: {fileID: 2232321189577748125}
+  animator: {fileID: 8930615550403718259}
+  startPos: {x: 0, y: 0}
+  _speed: 5
+  _health: 100
+  _damage: 10

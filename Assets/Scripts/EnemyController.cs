@@ -6,26 +6,68 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rigi;
     [SerializeField] private Collider2D cld;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
 
 
-    public float health;
-    public float damage;
+
+    [SerializeField] private Vector3 startPos;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _health;
+    [SerializeField] private float _damage;
 
     void Start()
     {
         rigi = GetComponent<Rigidbody2D>();
         cld = GetComponent<Collider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        startPos = this.transform.position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-
+        AutoMove();
     }
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag(StringConstant.ObjectTags.PLAYER))
         {
-            GameManager.Instance.UpdateHealth(this.damage);
+            GameManager.Instance.UpdateHealth(this._damage);
         }
+    }
+    private void PlayerDetected()
+    {
+    }
+    private void AutoMove()
+    {
+        if (this.transform.position.x >= startPos.x + 2f)
+        {
+            MoveLeft();
+        }
+        else if (this.transform.position.x <= startPos.x - 2f)
+        {
+            MoveRight();
+        }
+        else
+        {
+            if (spriteRenderer.flipX)
+            {
+                MoveRight();
+            }
+            else
+            {
+                MoveLeft();
+            }
+        }
+    }
+    private void MoveRight()
+    {
+        rigi.velocity += new Vector2(_speed, 0) * Time.deltaTime;
+        spriteRenderer.flipX = true;
+    }
+    private void MoveLeft()
+    {
+        rigi.velocity -= new Vector2(_speed, 0) * Time.deltaTime;
+        spriteRenderer.flipX = false;
     }
 }
