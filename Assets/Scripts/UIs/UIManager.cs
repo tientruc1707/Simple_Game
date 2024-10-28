@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _healthBar.value = GameManager.Instance.Health;
-        _healthBar.maxValue = GameManager.Instance._maxPlayerHealth;
+        _healthBar.maxValue = StringConstant.PlayerDetail.HEALTH;
         _healthText.text = _healthBar.value + "/" + _healthBar.maxValue;
         _scoreText.text = "Score: " + GameManager.Instance.Score.ToString();
     }
@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
     {
         _scoreText.text = "Score: " + score.ToString();
     }
-    public void UpdateHealth(int _currentHealth, int _maxHealth)
+    public void UpdateHealth(float _currentHealth, float _maxHealth)
     {
         _healthBar.value = _currentHealth;
         _healthText.text = _currentHealth + "/" + _maxHealth;

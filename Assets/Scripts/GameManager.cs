@@ -7,9 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public int Score { get; private set; }
-    public int _maxPlayerHealth = 100;
-    public int Health { get; private set; }
-
+    public float Health { get; private set; }
+    public bool PlayerAttack { get; set; }
 
     void Awake()
     {
@@ -23,7 +22,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Score = 0;
-        Health = _maxPlayerHealth;
+        Health = StringConstant.PlayerDetail.HEALTH;
+    }
+    public void HealthRegen()
+    {
+        Health = StringConstant.PlayerDetail.HEALTH;
+        UIManager.Instance.UpdateHealth(Health, StringConstant.PlayerDetail.HEALTH);
     }
     public void UpdateScore(int point)
     {
@@ -34,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         if (Health > 0)
             Health -= (int)dmg;
-        UIManager.Instance.UpdateHealth(Health, _maxPlayerHealth);
+        UIManager.Instance.UpdateHealth(Health, StringConstant.PlayerDetail.HEALTH);
         //         if (Health <= 0)
         //         {
         //              GameOver();

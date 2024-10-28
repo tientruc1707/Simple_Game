@@ -1513,7 +1513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469e350fe92217b4494d6def839567f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxPlayerHealth: 100
 --- !u!4 &469569706
 Transform:
   m_ObjectHideFlags: 0

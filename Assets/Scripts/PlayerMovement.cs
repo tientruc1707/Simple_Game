@@ -33,6 +33,16 @@ public class PlayerMovement : MonoBehaviour
             jump = true;
             isOnGround = false;
         }
+        if (Input.GetMouseButton(0))
+        {
+            anim.SetBool("DealDmg", true);
+            GameManager.Instance.PlayerAttack = true;
+        }
+        else
+        {
+            anim.SetBool("DealDmg", false);
+            GameManager.Instance.PlayerAttack = false;
+        }
     }
     void FixedUpdate()
     {

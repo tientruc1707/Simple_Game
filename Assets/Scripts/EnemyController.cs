@@ -27,16 +27,30 @@ public class EnemyController : MonoBehaviour
     void FixedUpdate()
     {
         AutoMove();
+        if (_health <= 0)
+        {
+            GameManager.Instance.UpdateScore(10);
+            Destroy(gameObject);
+        }
     }
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag(StringConstant.ObjectTags.PLAYER))
         {
             GameManager.Instance.UpdateHealth(this._damage);
+            if (GameManager.Instance.PlayerAttack == true)
+            {
+                TakeDamage();
+            }
         }
     }
-    private void PlayerDetected()
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
     {
+        GameManager.Instance.HealthRegen();
+        GameManager.Instance.UpdateScore(20);
     }
     private void AutoMove()
     {
@@ -69,5 +83,9 @@ public class EnemyController : MonoBehaviour
     {
         rigi.velocity -= new Vector2(_speed, 0) * Time.deltaTime;
         spriteRenderer.flipX = false;
+    }
+    private void TakeDamage()
+    {
+        _health -= StringConstant.PlayerDetail.DAMAGE;
     }
 }
