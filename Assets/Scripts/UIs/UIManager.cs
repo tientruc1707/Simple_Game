@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
         _healthBar.value = GameManager.Instance.Health;
         _healthBar.maxValue = StringConstant.PlayerDetail.HEALTH;
         _healthText.text = _healthBar.value + "/" + _healthBar.maxValue;
-        _scoreText.text = "Score: " + GameManager.Instance.Score.ToString();
+        _scoreText.text = "Score: " + GameManager.Instance.Score;
     }
 
     void Awake()
@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateScore(int score)
     {
-        _scoreText.text = "Score: " + score.ToString();
+        _scoreText.text = "Score: " + score;
     }
     public void UpdateHealth(float _currentHealth, float _maxHealth)
     {

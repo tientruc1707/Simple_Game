@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public int Score { get; private set; }
     public float Health { get; private set; }
     public bool PlayerAttack { get; set; }
+    public bool Alive { get; set; }
+    public bool CompleteLevel { get; set; }
 
     void Awake()
     {
@@ -21,8 +23,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Alive = true;
         Score = 0;
         Health = StringConstant.PlayerDetail.HEALTH;
+        CompleteLevel = false;
     }
     public void HealthRegen()
     {
@@ -37,11 +41,11 @@ public class GameManager : MonoBehaviour
     public void UpdateHealth(float dmg)
     {
         if (Health > 0)
-            Health -= (int)dmg;
+            Health -= dmg;
         UIManager.Instance.UpdateHealth(Health, StringConstant.PlayerDetail.HEALTH);
-        //         if (Health <= 0)
-        //         {
-        //              GameOver();
-        //         }
+        if (Health <= 0)
+        {
+            Alive = false;
+        }
     }
 }

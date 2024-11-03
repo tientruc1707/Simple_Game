@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Collider2D cld;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
-
+    [SerializeField] private AudioSource hitEffect;
 
 
     [SerializeField] private Vector3 startPos;
@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
         cld = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startPos = this.transform.position;
+        hitEffect = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -29,7 +30,8 @@ public class EnemyController : MonoBehaviour
         AutoMove();
         if (_health <= 0)
         {
-            GameManager.Instance.UpdateScore(10);
+            GameManager.Instance.HealthRegen();
+            GameManager.Instance.UpdateScore(20);
             Destroy(gameObject);
         }
     }
@@ -41,16 +43,9 @@ public class EnemyController : MonoBehaviour
             if (GameManager.Instance.PlayerAttack == true)
             {
                 TakeDamage();
+                hitEffect.PlayOneShot(hitEffect.clip);
             }
         }
-    }
-    /// <summary>
-    /// This function is called when the MonoBehaviour will be destroyed.
-    /// </summary>
-    void OnDestroy()
-    {
-        GameManager.Instance.HealthRegen();
-        GameManager.Instance.UpdateScore(20);
     }
     private void AutoMove()
     {

@@ -112,5 +112,9 @@ public class PlayerMovement : MonoBehaviour
         {
             isOnGround = true;
         }
+        if (other.gameObject.CompareTag(StringConstant.ObjectTags.TRAP))
+        {
+            anim.SetBool("Dead", true);
+        }
     }
 }
