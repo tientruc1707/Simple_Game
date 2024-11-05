@@ -12,7 +12,7 @@ public class ViewFail : View
     {
         _homeButton.onClick.AddListener(() => ViewManager.Show<ViewMainMenu>());
     }
-    void Start()
+    void Update()
     {
         _highScore.text = "" + GameManager.Instance.Score;
         _bestScore.text = "" + SaveData.Instance.GetHighScore();

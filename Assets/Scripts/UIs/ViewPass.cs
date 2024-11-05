@@ -13,7 +13,7 @@ public class ViewPass : View
     {
         _nextLevelButton.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
     }
-    void Start()
+    void Update()
     {
         _highScore.text = "" + GameManager.Instance.Score;
         _bestScore.text = "" + SaveData.Instance.GetHighScore();

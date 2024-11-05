@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     private void Run()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
-        rigi.velocity = new Vector2(moveX * moveForce * Time.deltaTime, rigi.velocity.y > -4.0f ? rigi.velocity.y : -4.0f);
+        rigi.linearVelocity = new Vector2(moveX * moveForce * Time.deltaTime, rigi.linearVelocity.y > -4.0f ? rigi.linearVelocity.y : -4.0f);
         if (moveX == 1)
         {
             sprite.flipX = false;
@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (jump)
             {
-                rigi.velocity = new(rigi.velocity.x, jumpForce * Time.deltaTime);
+                rigi.linearVelocity = new(rigi.linearVelocity.x, jumpForce * Time.deltaTime);
             }
             jump = false;
         }

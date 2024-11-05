@@ -13,19 +13,21 @@ public class ViewPlaying : View
     }
     public override void Initialize()
     {
-        //_pauseButton.onClick.AddListener(() => ViewManager.Open<ViewPauseGame>());
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ViewManager.Open<ViewPauseGame>();
-        }
+        _pauseButton.onClick.AddListener(() => ViewManager.Open<ViewPauseGame>());
+    }
+    public void Pause()
+    {
+        Time.timeScale = 0;
+    }
+    void Update()
+    {
         if (!gameManager.Alive)
         {
             ViewManager.Show<ViewFail>();
         }
-        if(gameManager.CompleteLevel)
+        if (gameManager.CompleteLevel)
         {
             ViewManager.Show<ViewPass>();
         }
     }
-
 }

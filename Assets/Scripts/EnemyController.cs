@@ -71,12 +71,12 @@ public class EnemyController : MonoBehaviour
     }
     private void MoveRight()
     {
-        rigi.velocity += new Vector2(_speed, 0) * Time.deltaTime;
+        rigi.linearVelocity += new Vector2(_speed, 0) * Time.deltaTime;
         spriteRenderer.flipX = true;
     }
     private void MoveLeft()
     {
-        rigi.velocity -= new Vector2(_speed, 0) * Time.deltaTime;
+        rigi.linearVelocity -= new Vector2(_speed, 0) * Time.deltaTime;
         spriteRenderer.flipX = false;
     }
     private void TakeDamage()

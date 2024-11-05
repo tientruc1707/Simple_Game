@@ -11,6 +11,15 @@ public class ViewSetting : View
     public override void Initialize()
     {
         _backButton.onClick.AddListener(() => ViewManager.ShowLast());
+    }
+
+    void Start()
+    {
+        _soundVolume.value = 100;
+        _musicVolume.value = 100;
+    }
+    public void Update()
+    {
         AudioManager.Instance.SoundVolumeChanged(_soundVolume);
         AudioManager.Instance.MusicVolumeChanged(_musicVolume);
     }
