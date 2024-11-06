@@ -10,15 +10,15 @@ public class ViewTrophies : View
     public override void Initialize()
     {
         _backButton.onClick.AddListener(() => ViewManager.ShowLast());
-        _bestScore = this.GetComponent<Text>();
+        if (_bestScore == null)
+        {
+            Debug.Log("Missing!");
+        }
     }
 
-    // void Start()
-    // {
-    //     _bestScore = this.GetComponent<Text>();
-    // }
     public void Update()
     {
-        _bestScore.text = "Best Score: ";
+        if (_bestScore != null)
+            _bestScore.text = "Best Score: " + DataManager.Instance.GetHighScore();
     }
 }

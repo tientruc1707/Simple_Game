@@ -10,6 +10,7 @@ public static class StringConstant
         public const string PLAYER = "Player";
         public const string TRAP = "Trap";
         public const string ENEMY = "Enemy";
+        public const string DOOR = "Door";
     }
     public static class PlayerDetail
     {
@@ -18,9 +19,14 @@ public static class StringConstant
         public static float SPEED = 150;
         public static float JUMPFORCE = 250;
     }
-    public static class GameState
+    public static class GameScene
     {
         public const string MAINMENU = "Main Menu";
 
+    }
+    public static class EnemyType
+    {
+        public const string BEE = "Bee";
+        public const string BOAR = "Boar";
     }
 }

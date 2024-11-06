@@ -16,6 +16,6 @@ public class ViewPass : View
     void Update()
     {
         _highScore.text = "" + GameManager.Instance.Score;
-        _bestScore.text = "" + SaveData.Instance.GetHighScore();
+        _bestScore.text = "" + DataManager.Instance.GetHighScore();
     }
 }

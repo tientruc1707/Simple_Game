@@ -24,7 +24,7 @@ public class ViewPauseGame : View
     }
     public void Home()
     {
-        SceneManager.LoadScene(StringConstant.GameState.MAINMENU);
+        SceneManager.LoadScene(StringConstant.GameScene.MAINMENU);
         ReturnTime();
     }
     private void ReturnTime()

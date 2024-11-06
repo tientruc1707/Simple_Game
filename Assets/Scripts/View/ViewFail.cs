@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ViewFail : View
@@ -10,11 +11,11 @@ public class ViewFail : View
     [SerializeField] private Button _homeButton;
     public override void Initialize()
     {
-        _homeButton.onClick.AddListener(() => ViewManager.Show<ViewMainMenu>());
+        _homeButton.onClick.AddListener(() => SceneManager.LoadScene(StringConstant.GameScene.MAINMENU));
     }
     void Update()
     {
         _highScore.text = "" + GameManager.Instance.Score;
-        _bestScore.text = "" + SaveData.Instance.GetHighScore();
+        _bestScore.text = "" + DataManager.Instance.GetHighScore();
     }
 }
