@@ -200,12 +200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b9241d9cb90ad5499cdc8b3852d074e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigi: {fileID: 2997970004800691105}
-  cld: {fileID: 1960397074523328573}
+  _rigidbody: {fileID: 2997970004800691105}
+  _collider: {fileID: 1960397074523328573}
   spriteRenderer: {fileID: 2232321189577748125}
   animator: {fileID: 8930615550403718259}
-  hitEffect: {fileID: 8296375373802635207}
-  startPos: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1447314019442615200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +229,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2bd44d6598112ba47855831a1cebf09d, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 2bd44d6598112ba47855831a1cebf09d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

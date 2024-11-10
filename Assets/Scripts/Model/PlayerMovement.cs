@@ -140,12 +140,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag(StringConstant.ObjectTags.TRAP))
         {
             animator.SetBool("Dead", true);
-            gameManager.Alive = false;
-        }
-
-        if (other.gameObject.CompareTag(StringConstant.ObjectTags.DOOR))
-        {
-            gameManager.CompleteLevel = true;
+            gameManager.UpdateHealth(100);
         }
     }
 }

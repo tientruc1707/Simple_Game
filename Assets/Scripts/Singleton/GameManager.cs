@@ -6,46 +6,120 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public int Score { get; private set; }
-    public float Health { get; private set; }
-    public bool PlayerAttack { get; set; }
-    public bool Alive { get; set; }
-    public bool CompleteLevel { get; set; }
+    [SerializeField] private GameState gameState;
 
-    void Awake()
+    public event System.Action<int> OnScoreChanged;
+    public event System.Action<float> OnHealthChanged;
+    public event System.Action OnGameOver;
+    public event System.Action OnLevelComplete;
+
+    public int Score
+    {
+        get => gameState.Score;
+        private set
+        {
+            gameState.Score = Mathf.Max(0, value);
+            OnScoreChanged?.Invoke(gameState.Score);
+        }
+    }
+
+    public float Health
+    {
+        get => gameState.Health;
+        private set
+        {
+            gameState.Health = Mathf.Clamp(value, 0, StringConstant.PlayerDetail.HEALTH);
+            OnHealthChanged?.Invoke(gameState.Health);
+
+            if (gameState.Health <= 0 && gameState.Alive)
+            {
+                gameState.Alive = false;
+                OnGameOver?.Invoke();
+            }
+        }
+    }
+
+    public bool PlayerAttack
+    {
+        get => gameState.PlayerAttack;
+        set => gameState.PlayerAttack = value;
+    }
+
+    public bool Alive
+    {
+        get => gameState.Alive;
+        private set => gameState.Alive = value;
+    }
+
+    public bool CompleteLevel
+    {
+        get => gameState.CompleteLevel;
+        set
+        {
+            gameState.CompleteLevel = value;
+            if (value) OnLevelComplete?.Invoke();
+        }
+    }
+
+    private void Awake()
+    {
+        InitializeSingleton();
+    }
+
+    private void InitializeSingleton()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            ResetGame();
+            Debug.Log($"Game restarted - Alive: {Alive}, Complete: {CompleteLevel}, Score: {Score}");
         }
         else
         {
             Destroy(gameObject);
         }
-        Alive = true;
-        Score = 0;
-        Health = StringConstant.PlayerDetail.HEALTH;
-        CompleteLevel = false;
     }
+
+    public void ResetGame()
+    {
+        gameState = new GameState
+        {
+            Alive = true,
+            Score = 0,
+            Health = StringConstant.PlayerDetail.HEALTH,
+            CompleteLevel = false,
+            PlayerAttack = false
+        };
+        OnScoreChanged?.Invoke(Score);
+        OnHealthChanged?.Invoke(Health);
+    }
+
     public void HealthRegen()
     {
         Health = StringConstant.PlayerDetail.HEALTH;
-        UIManager.Instance.UpdateHealth(Health, StringConstant.PlayerDetail.HEALTH);
     }
-    public void UpdateScore(int point)
+
+    public void UpdateScore(int points)
     {
-        Score += point;
-        UIManager.Instance.UpdateScore(Score);
+        if (points != 0)
+            Score += points;
     }
-    public void UpdateHealth(float dmg)
+
+    public void UpdateHealth(float damage)
     {
-        if (Health > 0)
-            Health -= dmg;
-        UIManager.Instance.UpdateHealth(Health, StringConstant.PlayerDetail.HEALTH);
-        if (Health <= 0)
-        {
-            Alive = false;
-        }
+        if (damage != 0)
+            Health -= damage;
     }
+}
+
+// Tách riêng struct để lưu trữ game state
+[System.Serializable]
+public struct GameState
+{
+    public int Score;
+    public float Health;
+    public bool PlayerAttack;
+    public bool Alive;
+    public bool CompleteLevel;
 }

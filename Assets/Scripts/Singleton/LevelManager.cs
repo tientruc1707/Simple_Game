@@ -22,7 +22,12 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadLevelReached(int lv)
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene("Level " + lv);
+    }
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameManager.Instance.ResetGame();
     }
     void OnDrawGizmosSelected()
     {
