@@ -8,7 +8,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Collider2D _collider;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
-
+    [SerializeField] private float _timeToAttack = 2, _timer = 0;
+    private bool _attacking = false;
     [SerializeField] private Vector3 startPosition;
     private Enemy enemy;
 
@@ -47,22 +48,29 @@ public class EnemyController : MonoBehaviour
             enemy = new Enemy(50, 10, 5);
         }
     }
-
+    private void Update()
+    {
+        if (_attacking)
+        {
+            _timer += Time.deltaTime;
+            if (_timer >= _timeToAttack)
+            {
+                _timer = 0;
+                _attacking = false;
+            }
+        }
+    }
     private void FixedUpdate()
     {
         AutoMove();
         CheckHealth();
     }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag(StringConstant.ObjectTags.PLAYER))
+        if (other.gameObject.CompareTag(StringConstant.ObjectTags.PLAYER)
+             && _attacking == false)
         {
-            GameManager.Instance.UpdateHealth(enemy.Damage);
-            if (GameManager.Instance.PlayerAttack)
-            {
-                TakeDamage();
-            }
+            DealDamage();
         }
     }
 
@@ -105,7 +113,18 @@ public class EnemyController : MonoBehaviour
     {
         enemy.Health -= StringConstant.PlayerDetail.DAMAGE;
     }
-
+    private void DealDamage()
+    {
+        if (!_attacking)
+        {
+            _attacking = true;
+            GameManager.Instance.UpdateHealth(enemy.Damage);
+            if (GameManager.Instance.PlayerAttack)
+            {
+                TakeDamage();
+            }
+        }
+    }
     private void CheckHealth()
     {
         if (enemy.Health <= 0)

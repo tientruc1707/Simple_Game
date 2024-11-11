@@ -90,8 +90,8 @@ public class StateManager : MonoBehaviour
     }
     public void Menu()
     {
-        SceneManager.LoadScene(StringConstant.GameScene.MAINMENU);
         Time.timeScale = 1f;
+        SceneManager.LoadScene(StringConstant.GameScene.MAINMENU);
     }
 
     public void NextLevel()

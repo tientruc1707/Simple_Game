@@ -26,11 +26,11 @@ public class DataManager : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey(LevelKey))
         {
-            SetLevel(1); // Mặc định là level 1
+            SetLevel(1);
         }
         if (!PlayerPrefs.HasKey(ScoreKey))
         {
-            SetScore(0); // Mặc định là 0 điểm
+            SetScore(0);
         }
         if (!PlayerPrefs.HasKey(BestScore))
         {
@@ -65,7 +65,6 @@ public class DataManager : MonoBehaviour
     {
         return PlayerPrefs.GetInt(BestScore);
     }
-    // Xóa dữ liệu
     public void ResetData()
     {
         PlayerPrefs.DeleteKey(LevelKey);

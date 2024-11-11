@@ -34,21 +34,10 @@ public class UIManager : MonoBehaviour
 
     private void InitializeUI()
     {
-        if (_healthBar != null)
-        {
-            _healthBar.value = GameManager.Instance.Health;
-            _healthBar.maxValue = StringConstant.PlayerDetail.HEALTH;
-        }
-
-        if (_healthText != null)
-        {
-            _healthText.text = $"{_healthBar.value}/{_healthBar.maxValue}";
-        }
-
-        if (_scoreText != null)
-        {
-            _scoreText.text = $"Score: {GameManager.Instance.Score}";
-        }
+        _healthBar.value = GameManager.Instance.Health;
+        _healthBar.maxValue = StringConstant.PlayerDetail.HEALTH;
+        _healthText.text = $"{_healthBar.value}/{_healthBar.maxValue}";
+        _scoreText.text = $"Score: {GameManager.Instance.Score}";
     }
 
     public void UpdateScore(int score)

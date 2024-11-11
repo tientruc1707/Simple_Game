@@ -12,14 +12,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private AudioSource _runSFX, attackSFX;
 
     private GameManager gameManager;
-    [SerializeField] private AudioSource hitEffect;
-    public float moveForce = 150f;
+    public float moveForce = 200f;
     public float jumpForce = 250f;
+    public float timeToAttack, timer = 0;
     private bool isJumping = false;
     private bool isOnGround = false;
-    private bool isAttacking = false;
+    private bool _attacking = false;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,32 +32,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Space) && IsOnGround())
         {
             isJumping = true;
             isOnGround = false;
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !_attacking)
         {
-            StartAttack();
+            Attack();
         }
-        if (isAttacking && !animator.GetCurrentAnimatorStateInfo(0).IsName("DealDmg"))
+        if (_attacking)
         {
-            isAttacking = false;
-            gameManager.PlayerAttack = false;
+            timer += Time.deltaTime;
+            if (timer >= timeToAttack)
+            {
+                _attacking = false;
+                animator.SetBool("Attack", false);
+                timer = 0;
+                GameManager.Instance.PlayerAttack = false;
+            }
         }
     }
-    private void StartAttack()
+
+    private void Attack()
     {
-        animator.CrossFade("PlayerAttack", 1);
-        gameManager.PlayerAttack = true;
-        isAttacking = true;
-        StartCoroutine(PlaySFX());
-    }
-    private IEnumerator PlaySFX()
-    {
-        hitEffect.PlayOneShot(hitEffect.clip);
-        yield return new WaitForSeconds(3f);
+        if (!_attacking)
+        {
+            _attacking = true;
+            animator.SetBool("Attack", true);
+            attackSFX.Play();
+            GameManager.Instance.PlayerAttack = true;
+        }
     }
     private void FixedUpdate()
     {
@@ -89,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
-
+        _runSFX.Play();
         animator.SetFloat("Running", Mathf.Abs(moveX));
     }
 

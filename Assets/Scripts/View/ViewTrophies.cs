@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ViewTrophies : View
+public class ViewTrophies : MonoBehaviour
 {
-    [SerializeField] private Button _backButton;
     [SerializeField] private Text _bestScore;
-    public override void Initialize()
-    {
-        _backButton.onClick.AddListener(() => ViewManager.ShowLast());
-        if (_bestScore == null)
-        {
-            Debug.Log("Missing!");
-        }
-    }
 
+    void Start()
+    {
+        _bestScore = GetComponent<Text>();
+    }
     public void Update()
     {
         if (_bestScore != null)

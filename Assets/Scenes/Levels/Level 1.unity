@@ -10215,11 +10215,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!82 &1652668167 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 8760375924861384380, guid: 18d31697dcf0ab64ba478aca0da7dedc, type: 3}
-  m_PrefabInstance: {fileID: 2602710587244577416}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1654324001
 GameObject:
   m_ObjectHideFlags: 0
@@ -11054,13 +11049,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 837983199022315630, guid: 18d31697dcf0ab64ba478aca0da7dedc, type: 3}
-      propertyPath: Camera
-      value: 
-      objectReference: {fileID: 1322402071}
-    - target: {fileID: 837983199022315630, guid: 18d31697dcf0ab64ba478aca0da7dedc, type: 3}
-      propertyPath: hitEffect
-      value: 
-      objectReference: {fileID: 1652668167}
+      propertyPath: timeToAttack
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 837983199022315630, guid: 18d31697dcf0ab64ba478aca0da7dedc, type: 3}
       propertyPath: cameraTransform
       value: 
