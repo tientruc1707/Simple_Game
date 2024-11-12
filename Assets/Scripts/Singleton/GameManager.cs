@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             ResetGame();
-            Debug.Log($"Game restarted - Alive: {Alive}, Complete: {CompleteLevel}, Score: {Score}");
+            Debug.Log($"Game restarted - Alive: {Alive}, Complete: {CompleteLevel}, Score: {Score}, Health:  {Health}");
         }
         else
         {

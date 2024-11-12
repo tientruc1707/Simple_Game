@@ -19,11 +19,13 @@ public class EnemyController : MonoBehaviour
         public float Health { get; set; }
         public float Damage { get; set; }
         public float Speed { get; set; }
-        public Enemy(float health, float damage, float speed)
+        public float Value { get; set; }
+        public Enemy(float health, float damage, float speed, float value)
         {
             this.Health = health;
             this.Damage = damage;
             this.Speed = speed;
+            this.Value = value;
         }
     }
 
@@ -41,11 +43,11 @@ public class EnemyController : MonoBehaviour
     {
         if (gameObject.CompareTag(StringConstant.EnemyType.BOAR))
         {
-            enemy = new Enemy(100, 20, 3);
+            enemy = new Enemy(100, 20, 3, 30);
         }
         else if (gameObject.CompareTag(StringConstant.EnemyType.BEE))
         {
-            enemy = new Enemy(50, 10, 5);
+            enemy = new Enemy(50, 10, 5, 15);
         }
     }
     private void Update()
@@ -130,7 +132,7 @@ public class EnemyController : MonoBehaviour
         if (enemy.Health <= 0)
         {
             GameManager.Instance.HealthRegen();
-            GameManager.Instance.UpdateScore(20);
+            GameManager.Instance.UpdateScore((int)enemy.Value);
             Destroy(gameObject);
         }
     }

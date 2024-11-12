@@ -18,7 +18,7 @@ public class ExitTrigger : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        UIManager.Instance.fadeToBlack = true;
+        //UIManager.Instance.fadeToBlack = true;
 
         yield return new WaitForSeconds(2f);
         GameManager.Instance.CompleteLevel = true;
