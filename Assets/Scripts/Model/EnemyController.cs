@@ -20,12 +20,14 @@ public class EnemyController : MonoBehaviour
         public float Damage { get; set; }
         public float Speed { get; set; }
         public float Value { get; set; }
-        public Enemy(float health, float damage, float speed, float value)
+        public float AttackRange { get; set; }
+        public Enemy(float health, float damage, float speed, float value, float attackRange)
         {
             this.Health = health;
             this.Damage = damage;
             this.Speed = speed;
             this.Value = value;
+            this.AttackRange = attackRange;
         }
     }
 
@@ -43,11 +45,11 @@ public class EnemyController : MonoBehaviour
     {
         if (gameObject.CompareTag(StringConstant.EnemyType.BOAR))
         {
-            enemy = new Enemy(100, 20, 3, 30);
+            enemy = new Enemy(100, 20, 3, 30, 2f);
         }
         else if (gameObject.CompareTag(StringConstant.EnemyType.BEE))
         {
-            enemy = new Enemy(50, 10, 5, 15);
+            enemy = new Enemy(50, 10, 5, 15, 3f);
         }
     }
     private void Update()
@@ -67,7 +69,7 @@ public class EnemyController : MonoBehaviour
         AutoMove();
         CheckHealth();
     }
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(StringConstant.ObjectTags.PLAYER)
              && _attacking == false)
@@ -78,11 +80,11 @@ public class EnemyController : MonoBehaviour
 
     private void AutoMove()
     {
-        if (transform.position.x >= startPosition.x + 2f)
+        if (transform.position.x >= startPosition.x + enemy.AttackRange)
         {
             MoveLeft();
         }
-        else if (transform.position.x <= startPosition.x - 2f)
+        else if (transform.position.x <= startPosition.x - enemy.AttackRange)
         {
             MoveRight();
         }

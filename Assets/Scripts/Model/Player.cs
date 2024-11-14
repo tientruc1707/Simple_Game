@@ -5,7 +5,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D _collider;
@@ -143,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
             isOnGround = true;
         }
 
-        if (other.gameObject.CompareTag(StringConstant.ObjectTags.TRAP))
+        if (other.gameObject.CompareTag(StringConstant.ObjectTags.DEADZONE))
         {
             animator.SetBool("Dead", true);
             gameManager.UpdateHealth(100);

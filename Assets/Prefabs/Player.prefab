@@ -209,7 +209,7 @@ MonoBehaviour:
   attackSFX: {fileID: 73497321817079390}
   moveForce: 200
   jumpForce: 250
-  timeToAttack: 1.25
+  timeToAttack: 0.7
   timer: 0
 --- !u!82 &8760375924861384380
 AudioSource:

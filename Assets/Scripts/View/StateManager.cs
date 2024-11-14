@@ -24,6 +24,7 @@ public class StateManager : MonoBehaviour
         SettingScene();
         gameManager = GameManager.Instance;
         gameManager.ResetGame();
+        UIManager.Instance.InitializeUI();
     }
     private void SettingScene()
     {

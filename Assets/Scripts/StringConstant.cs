@@ -8,7 +8,7 @@ public static class StringConstant
     {
         public const string GROUND = "Ground";
         public const string PLAYER = "Player";
-        public const string TRAP = "Trap";
+        public const string DEADZONE = "DeadZone";
         public const string ENEMY = "Enemy";
         public const string DOOR = "Door";
     }

@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class ViewTrophies : MonoBehaviour
 {
-    [SerializeField] private Text _bestScore;
+    [SerializeField] private Text _bestScoreText;
 
-    void Start()
+    public void Start()
     {
-        _bestScore = GetComponent<Text>();
+        GameObject textObject = GameObject.Find("Best Score");
+        if (textObject != null)
+            _bestScoreText = textObject.GetComponent<Text>();
     }
     public void Update()
     {
-        if (_bestScore != null)
-            _bestScore.text = "Best Score: " + DataManager.Instance.GetHighScore();
+        _bestScoreText.text = "Best Score: " + DataManager.Instance.GetHighScore();
     }
 }

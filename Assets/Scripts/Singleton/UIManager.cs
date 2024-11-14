@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _scoreText;
     [SerializeField] private Text _healthText;
     [SerializeField] private Slider _healthBar;
+    [SerializeField] private Image _blackScreen;
     private void Awake()
     {
         if (Instance == null)
@@ -29,7 +30,7 @@ public class UIManager : MonoBehaviour
         InitializeUI();
     }
 
-    private void InitializeUI()
+    public void InitializeUI()
     {
         _healthBar.value = GameManager.Instance.Health;
         _healthBar.maxValue = StringConstant.PlayerDetail.HEALTH;
@@ -85,10 +86,10 @@ public class UIManager : MonoBehaviour
             InitializeUI();
         }
     }
-    // private void FadeScreen(float targetAlpha)
-    // {
-    //     Color currentColor = blackScreen.color;
-    //     float newAlpha = Mathf.MoveTowards(currentColor.a, targetAlpha, 2f * Time.deltaTime);
-    //     blackScreen.color = new Color(currentColor.r, currentColor.g, currentColor.b, newAlpha);
-    // }
+    private void FadeScreen(float targetAlpha)
+    {
+        Color currentColor = _blackScreen.color;
+        float newAlpha = Mathf.MoveTowards(currentColor.a, targetAlpha, 2f * Time.deltaTime);
+        _blackScreen.color = new Color(currentColor.r, currentColor.g, currentColor.b, newAlpha);
+    }
 }

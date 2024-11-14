@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.9855, y: -231.6405}
-  m_SizeDelta: {x: 989.0161, y: 152.8542}
+  m_AnchoredPosition: {x: -3, y: -241}
+  m_SizeDelta: {x: 1257.1321, y: 152.8542}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &12888583
 MonoBehaviour:
@@ -189,7 +189,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Best Score
 --- !u!222 &12888584
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3172,7 +3172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1248856427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3207,7 +3207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75707ec591667a14b87cfd5e76987ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bestScore: {fileID: 12888583}
+  _bestScoreText: {fileID: 12888583}
 --- !u!1 &1291792200
 GameObject:
   m_ObjectHideFlags: 0
