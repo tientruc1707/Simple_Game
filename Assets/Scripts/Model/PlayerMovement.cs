@@ -5,29 +5,26 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerMovvement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private AudioSource _runSFX, attackSFX;
+    [SerializeField] private AudioSource _runSFX;
 
-    private GameManager gameManager;
     public float moveForce = 200f;
     public float jumpForce = 250f;
-    public float timeToAttack, timer = 0;
     private bool isJumping = false;
     private bool isOnGround = false;
-    private bool _attacking = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        gameManager = GameManager.Instance;
     }
 
     private void Update()
@@ -36,32 +33,6 @@ public class Player : MonoBehaviour
         {
             isJumping = true;
             isOnGround = false;
-        }
-        if (Input.GetMouseButtonDown(1) && !_attacking)
-        {
-            Attack();
-        }
-        if (_attacking)
-        {
-            timer += Time.deltaTime;
-            if (timer >= timeToAttack)
-            {
-                _attacking = false;
-                animator.SetBool("Attack", false);
-                timer = 0;
-                GameManager.Instance.PlayerAttack = false;
-            }
-        }
-    }
-
-    private void Attack()
-    {
-        if (!_attacking)
-        {
-            _attacking = true;
-            animator.SetBool("Attack", true);
-            attackSFX.Play();
-            GameManager.Instance.PlayerAttack = true;
         }
     }
     private void FixedUpdate()
@@ -117,7 +88,6 @@ public class Player : MonoBehaviour
     private bool IsOnGround()
     {
         Color rayColor = Color.red;
-
         float rayLength = 1f;
         Vector2 startPosition = (Vector2)transform.position - new Vector2(0, _collider.bounds.extents.y);
         int layerMask = LayerMask.GetMask(StringConstant.ObjectTags.GROUND);
@@ -135,18 +105,11 @@ public class Player : MonoBehaviour
         Debug.DrawRay(startPosition, Vector2.down * rayLength, rayColor);
         return hit.collider != null;
     }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag(StringConstant.ObjectTags.GROUND))
         {
             isOnGround = true;
-        }
-
-        if (other.gameObject.CompareTag(StringConstant.ObjectTags.DEADZONE))
-        {
-            animator.SetBool("Dead", true);
-            gameManager.UpdateHealth(100);
         }
     }
 }
