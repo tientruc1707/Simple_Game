@@ -8,16 +8,22 @@ public class GameController : MonoBehaviour
     private GameManager _gameManager;
     private DataManager _dataManager;
 
-    private int _levelMaxUnlocked;
-    public int levelToUnlock;
+    public int _levelMaxUnlocked;
+    public int _currentLevel;
     void Start()
     {
         _gameManager = GameManager.Instance;
         _dataManager = DataManager.Instance;
         _levelMaxUnlocked = _dataManager.GetLevel();
+        _currentLevel = SceneManager.GetActiveScene().buildIndex;
     }
     void Update()
     {
+        if (_levelMaxUnlocked < _currentLevel)
+        {
+            _levelMaxUnlocked = _currentLevel;
+        }
+        _dataManager.SetLevel(_levelMaxUnlocked);
         if (!_gameManager.Alive)
         {
             _dataManager.SetScore(_gameManager.Score);
@@ -33,11 +39,6 @@ public class GameController : MonoBehaviour
             {
                 _dataManager.SetHighScore(_gameManager.Score);
             }
-            if (_levelMaxUnlocked < levelToUnlock)
-            {
-                _levelMaxUnlocked = levelToUnlock;
-            }
-            _dataManager.SetLevel(_levelMaxUnlocked);
         }
     }
 }

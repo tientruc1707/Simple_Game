@@ -417,5 +417,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2686997857113575496}
   attackSFX: {fileID: 73497321817079390}
-  _cooldown: 0
+  _cooldown: 0.8
   timer: 0

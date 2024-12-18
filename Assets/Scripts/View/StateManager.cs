@@ -12,7 +12,6 @@ public class StateManager : MonoBehaviour
     [SerializeField] private GameObject _levelFail;
     [SerializeField] private GameObject _levelPass;
     [SerializeField] private GameObject _levelPause;
-    public Text Score1, BestScore1, Score2, BestScore2;
     public int levelToUnlock;
     private int levelMaxUnlocked;
     private GameManager gameManager;
@@ -39,7 +38,6 @@ public class StateManager : MonoBehaviour
     {
         if (gameManager != null)
         {
-            UpdateScore();
             CheckGameState();
         }
 
@@ -47,12 +45,6 @@ public class StateManager : MonoBehaviour
         {
             PauseGame();
         }
-    }
-
-    private void UpdateScore()
-    {
-        Score1.text = Score2.text = "" + GameManager.Instance.Score;
-        BestScore1.text = BestScore2.text = "" + DataManager.Instance.GetHighScore();
     }
 
     private void CheckGameState()
@@ -74,8 +66,6 @@ public class StateManager : MonoBehaviour
         if (!_levelFail.activeSelf)
         {
             _levelFail.SetActive(true);
-            Score2.gameObject.SetActive(true);
-            BestScore2.gameObject.SetActive(true);
         }
     }
 
@@ -84,16 +74,7 @@ public class StateManager : MonoBehaviour
         if (!_levelPass.activeSelf)
         {
             _levelPass.SetActive(true);
-            Score1.gameObject.SetActive(true);
-            BestScore1.gameObject.SetActive(true);
         }
-
-        if (levelMaxUnlocked < levelToUnlock)
-        {
-            levelMaxUnlocked = levelToUnlock;
-        }
-
-        PlayerPrefs.SetInt("levelReached", levelMaxUnlocked);
     }
 
     public void Restart()
@@ -122,6 +103,7 @@ public class StateManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(StringConstant.GameScene.MAINMENU);
+        DataManager.Instance.ResetData();
     }
 
     public void NextLevel()

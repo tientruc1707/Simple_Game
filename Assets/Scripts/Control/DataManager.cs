@@ -67,7 +67,7 @@ public class DataManager : MonoBehaviour
     }
     public void ResetData()
     {
-        PlayerPrefs.DeleteKey(LevelKey);
+        //PlayerPrefs.DeleteKey(LevelKey);
         PlayerPrefs.DeleteKey(ScoreKey);
         PlayerPrefs.Save();
     }

@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         gameState = new GameState
         {
             Alive = true,
-            Score = 0,
+            Score = DataManager.Instance.GetScore(),
             Health = StringConstant.PlayerDetail.HEALTH,
             CompleteLevel = false,
             PlayerAttack = false
