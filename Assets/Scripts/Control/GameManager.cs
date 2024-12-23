@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
     {
         if (points != 0)
             Score += points;
-        UIManager.Instance.UpdateScore(20);
+        UIManager.Instance.UpdateScore(Score);
     }
 
     public void UpdateHealth(float damage)

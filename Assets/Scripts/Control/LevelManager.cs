@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Overlays;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,6 +19,7 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadLevelReached(int lv)
     {
+        DataManager.Instance.ResetData();
         SceneManager.LoadScene("Level " + lv);
     }
     void OnDrawGizmosSelected()

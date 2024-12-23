@@ -37,7 +37,10 @@ public class DataManager : MonoBehaviour
             SetHighScore(0);
         }
     }
-
+    void Start()
+    {
+        SetScore(0);
+    }
     public void SetLevel(int level)
     {
         PlayerPrefs.SetInt(LevelKey, level);

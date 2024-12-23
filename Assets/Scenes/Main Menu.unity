@@ -1087,8 +1087,9 @@ GameObject:
   m_Component:
   - component: {fileID: 433424982}
   - component: {fileID: 433424983}
+  - component: {fileID: 433424984}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: SysteamManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1124,6 +1125,24 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: 3d3b3a366e5cc50469f4f771e31db69e, type: 2}
   musicSlider: {fileID: 1813987954}
   sfxSlider: {fileID: 306901551}
+--- !u!114 &433424984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433424980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469e350fe92217b4494d6def839567f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState:
+    Score: 0
+    Health: 0
+    PlayerAttack: 0
+    Alive: 0
+    CompleteLevel: 0
 --- !u!1 &479028389
 GameObject:
   m_ObjectHideFlags: 0

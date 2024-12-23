@@ -23,8 +23,12 @@ public class GameController : MonoBehaviour
         {
             _levelMaxUnlocked = _currentLevel;
         }
-        _dataManager.SetLevel(_levelMaxUnlocked);
-        if (!_gameManager.Alive)
+        WinLevel();
+        LoseLevel();
+    }
+    private void WinLevel()
+    {
+        if (_gameManager.CompleteLevel)
         {
             _dataManager.SetScore(_gameManager.Score);
             if (_gameManager.Score > _dataManager.GetHighScore())
@@ -32,7 +36,10 @@ public class GameController : MonoBehaviour
                 _dataManager.SetHighScore(_gameManager.Score);
             }
         }
-        if (_gameManager.CompleteLevel)
+    }
+    private void LoseLevel()
+    {
+        if (!_gameManager.Alive)
         {
             _dataManager.SetScore(_gameManager.Score);
             if (_gameManager.Score > _dataManager.GetHighScore())

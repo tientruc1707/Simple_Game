@@ -103,7 +103,6 @@ public class StateManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(StringConstant.GameScene.MAINMENU);
-        DataManager.Instance.ResetData();
     }
 
     public void NextLevel()
