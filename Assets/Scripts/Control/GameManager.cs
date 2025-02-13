@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] private GameState gameState;
-
     public event System.Action<int> OnScoreChanged;
     public event System.Action<float> OnHealthChanged;
     public event System.Action OnGameOver;
@@ -112,6 +113,36 @@ public class GameManager : MonoBehaviour
         if (damage != 0)
             Health -= damage;
         UIManager.Instance.UpdateHealth(Health, StringConstant.PlayerDetail.HEALTH);
+    }
+    public void ShowDamageNumber(GameObject damageNumberPrefab, Vector3 worldPosition, float damage)
+    {
+        GameObject damageText = Instantiate(damageNumberPrefab, worldPosition, Quaternion.identity);
+        damageText.GetComponent<Text>().text = damage.ToString();
+
+        //Animation for textNum
+        StartCoroutine(AnimateDamageNumber(damageText));
+    }
+
+    private IEnumerator AnimateDamageNumber(GameObject damageText)
+    {
+        float duration = 2f;
+        float timer = 0f;
+
+        Vector3 startPos = damageText.transform.position;
+        Vector3 endPos = startPos + Vector3.up * 2;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+
+            damageText.transform.position = Vector3.Lerp(startPos, endPos, t);
+            Color textColor = damageText.GetComponent<Text>().color;
+            textColor.a = 1 - t;
+
+            yield return null;
+        }
+
+        Destroy(damageText);
     }
 }
 

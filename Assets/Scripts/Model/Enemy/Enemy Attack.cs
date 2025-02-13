@@ -5,6 +5,7 @@ public class EnemyAttack : EnemyFunction
     [SerializeField] private Collider2D _collider;
     [SerializeField] private float _cooldown = 2f;
     [SerializeField] private float _timer = 0;
+    [SerializeField] private GameObject damageNumberText;
     private bool _attackable = false;
 
 
@@ -49,6 +50,7 @@ public class EnemyAttack : EnemyFunction
             if (GameManager.Instance.PlayerAttack)
             {
                 TakeDamage();
+                //GameManager.Instance.ShowDamageNumber(damageNumberText, this.transform.position, StringConstant.PlayerDetail.DAMAGE);
             }
         }
     }
