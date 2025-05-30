@@ -1,22 +1,14 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Audio;
+
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
+    public Sound[] backgroundSounds;
+    public Sound[] soundEffects;
 
-    [SerializeField] private AudioMixer mixer;
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider sfxSlider;
-
-    // Tên của Exposed Parameters trong Audio Mixer
-    private const string MUSIC_KEY = "MusicVolume";
-    private const string SFX_KEY = "SFXVolume";
-
-    // Key để lưu setting
-    private const string MUSIC_SAVE_KEY = "MusicVolume";
-    private const string SFX_SAVE_KEY = "SFXVolume";
+    private AudioSource backgroundAudioSource;
+    private AudioSource sfxSource;
 
     private void Awake()
     {
@@ -30,54 +22,46 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        LoadVolume();
     }
 
     private void Start()
     {
-        musicSlider.onValueChanged.AddListener(SetMusicVolume);
-        sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+        backgroundAudioSource = gameObject.AddComponent<AudioSource>();
+        backgroundAudioSource.loop = true;
+        backgroundAudioSource.playOnAwake = false;
+        sfxSource = gameObject.AddComponent<AudioSource>();
     }
-
-    private void LoadVolume()
+    public void PlayBackgroundSound(string name)
     {
-        float musicVolume = PlayerPrefs.GetFloat(MUSIC_SAVE_KEY, 1f);
-        float sfxVolume = PlayerPrefs.GetFloat(SFX_SAVE_KEY, 1f);
-
-        if (musicSlider != null)
-            musicSlider.value = musicVolume;
-
-        if (sfxSlider != null)
-            sfxSlider.value = sfxVolume;
-
-        SetMusicVolume(musicVolume);
-        SetSFXVolume(sfxVolume);
+        Sound s = System.Array.Find(backgroundSounds, sound => sound._name == name);
+        backgroundAudioSource.clip = s.clip;
+        backgroundAudioSource.volume = s.volume;
+        backgroundAudioSource.Play();
     }
-
-    public void SetMusicVolume(float volume)
+    public void StopBackgroundSound()
     {
-        mixer.SetFloat(MUSIC_KEY, Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat(MUSIC_SAVE_KEY, volume);
-        PlayerPrefs.Save();
+        backgroundAudioSource.Stop();
     }
-
-    public void SetSFXVolume(float volume)
+    public void PlaySoundEffect(string name)
     {
-        if (mixer != null)
+        Sound s = System.Array.Find(soundEffects, sound => sound._name == name);
+        sfxSource.PlayOneShot(s.clip, s.volume);
+    }
+    public void SetBackgroundVolume(float volume)
+    {
+        backgroundAudioSource.volume = Mathf.Clamp01(volume);
+        foreach (Sound sound in backgroundSounds)
         {
-            mixer.SetFloat(SFX_KEY, Mathf.Log10(volume) * 20);
-        }
-        PlayerPrefs.SetFloat(SFX_SAVE_KEY, volume);
-        PlayerPrefs.Save();
-    }
-
-    // Play sound effect
-    public void PlaySFX(AudioSource source, AudioClip clip)
-    {
-        if (source != null && clip != null)
-        {
-            source.clip = clip;
-            source.Play();
+            sound.volume = volume;
         }
     }
+    public void SetSfxtVolume(float volume)
+    {
+        sfxSource.volume = Mathf.Clamp01(volume);
+        foreach (Sound sound in soundEffects)
+        {
+            sound.volume = volume;
+        }
+    }
+
 }

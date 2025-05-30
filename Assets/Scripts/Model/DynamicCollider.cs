@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 public class DynamicCollider : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D boxCollider;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    private BoxCollider2D boxCollider;
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
@@ -20,13 +21,12 @@ public class DynamicCollider : MonoBehaviour
     }
     private void DynamicBox()
     {
-        if (spriteRenderer.sprite)
+        if (spriteRenderer != null && boxCollider != null)
         {
-            //Get Size sprite
+            transform.position = GetComponent<Rigidbody2D>().position;
             Vector2 sprtieSize = spriteRenderer.sprite.bounds.size;
-            //assign to boxcollider
             boxCollider.size = sprtieSize;
-            boxCollider.offset = spriteRenderer.sprite.bounds.center;
+            boxCollider.offset = new Vector2(0, sprtieSize.y / 2f);
         }
     }
 }

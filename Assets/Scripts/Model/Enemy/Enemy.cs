@@ -1,4 +1,11 @@
 
+
+
+enum EnemyType
+{
+    BEE,
+    BOAR
+}
 [System.Serializable]
 public class Enemy
 {
@@ -7,7 +14,7 @@ public class Enemy
     public float Speed { get; set; }
     public float Value { get; set; }
     public float AttackRange { get; set; }
-
+    
     public Enemy(float health, float damage, float speed, float value, float attackRange)
     {
         Health = health;

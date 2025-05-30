@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 [Serializable]
 public class MenuGame : MonoBehaviour
 {
-    public SceneFader sceneFader;
+
     public GameObject settingGUI;
     public GameObject menuGUI;
     public GameObject howToPlayGUI;
@@ -17,6 +17,7 @@ public class MenuGame : MonoBehaviour
     public void Start()
     {
         MenuOn();
+        SoundManager.Instance.PlayBackgroundSound(StringConstant.SOUNDS.GAME_BACKGROUND);
     }
     public void PlayGame()
     {

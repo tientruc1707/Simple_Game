@@ -1,10 +1,8 @@
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
 
 public class StateManager : MonoBehaviour
 {
@@ -12,20 +10,22 @@ public class StateManager : MonoBehaviour
     [SerializeField] private GameObject _levelFail;
     [SerializeField] private GameObject _levelPass;
     [SerializeField] private GameObject _levelPause;
-    public int levelToUnlock;
-    private int levelMaxUnlocked;
-    private GameManager gameManager;
 
 
+    [SerializeField] private PlayerHealth playerHealth;
 
-    void Start()
+    void OnEnable()
     {
-        SettingScene();
-        gameManager = GameManager.Instance;
-        gameManager.ResetGame();
-        UIManager.Instance.InitializeUI();
+        InitializeUI();
+        GameManager.Instance.LevelCompleted.AddListener(WinGame);
+        GameManager.Instance.LevelFailed.AddListener(LoseGame);
     }
-    private void SettingScene()
+    void OnDisable()
+    {
+        GameManager.Instance.LevelCompleted.RemoveListener(WinGame);
+        GameManager.Instance.LevelFailed.RemoveListener(LoseGame);
+    }
+    private void InitializeUI()
     {
         Time.timeScale = 1;
         _levelPlay.SetActive(true);
@@ -36,29 +36,12 @@ public class StateManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameManager != null)
-        {
-            CheckGameState();
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
         }
     }
 
-    private void CheckGameState()
-    {
-        if (!gameManager.Alive)
-        {
-            LoseGame();
-        }
-
-        if (gameManager.CompleteLevel)
-        {
-            WinGame();
-        }
-    }
 
     public void LoseGame()
     {
@@ -107,6 +90,11 @@ public class StateManager : MonoBehaviour
 
     public void NextLevel()
     {
+        if (_levelFail.activeSelf || _levelPass.activeSelf)
+        {
+            _levelFail.SetActive(false);
+            _levelPass.SetActive(false);
+        }
         if (SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

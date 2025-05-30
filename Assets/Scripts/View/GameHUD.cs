@@ -1,43 +1,36 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
-public class UIManager : MonoBehaviour
+public class GameHUD : MonoBehaviour
 {
-    public static UIManager Instance { get; private set; }
 
+    [SerializeField] private PlayerHealth playerHealth;
     [Header("UI References")]
     [SerializeField] private Text _scoreText;
     [SerializeField] private Text _healthText;
     [SerializeField] private Slider _healthBar;
-    [SerializeField] private Image _blackScreen;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
-
-    private void Start()
+    private void OnEnable()
     {
         InitializeUI();
+        SoundManager.Instance.StopBackgroundSound();
+        SoundManager.Instance.PlayBackgroundSound(StringConstant.SOUNDS.MAIN_SOUND);
     }
 
     public void InitializeUI()
     {
-        _healthBar.value = GameManager.Instance.Health;
         _healthBar.maxValue = StringConstant.PlayerDetail.HEALTH;
-        _healthText.text = $"{_healthBar.value}/{_healthBar.maxValue}";
-        _scoreText.text = $"Score: {GameManager.Instance.Score}";
+        _healthBar.value = _healthBar.maxValue;
+        _healthText.text = $"{StringConstant.PlayerDetail.HEALTH}/{StringConstant.PlayerDetail.HEALTH}";
+        UpdateScore(DataManager.Instance.GetScore());
     }
 
+    void Update()
+    {
+        UpdateScore(DataManager.Instance.GetScore());
+        UpdateHealth(playerHealth.CurrentHealth, StringConstant.PlayerDetail.HEALTH);
+    }
     public void UpdateScore(int score)
     {
         if (_scoreText != null)
@@ -48,48 +41,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHealth(float currentHealth, float maxHealth)
     {
-        if (_healthBar != null)
-        {
-            _healthBar.value = currentHealth;
-        }
-
-        if (_healthText != null)
-        {
-            _healthText.text = $"{currentHealth}/{maxHealth}";
-        }
+        _healthBar.value = currentHealth;
+        _healthText.text = $"{currentHealth}/{maxHealth}";
     }
-    //Create new UI if needed
-    public void CreateNewUIElements(Transform canvas)
-    {
-        if (canvas == null)
-        {
-            Debug.LogError("Canvas reference is missing!");
-            return;
-        }
 
-        if (_healthBar == null)
-        {
-            _healthBar = Instantiate(_healthBar, canvas);
-            _healthBar.transform.position = new Vector3(365, -80, 0);
-
-            if (_scoreText == null)
-            {
-                _scoreText = Instantiate(_scoreText, canvas);
-                _scoreText.transform.position = new Vector3(25, -80, 0);
-            }
-
-            if (_healthText == null)
-            {
-                _healthText = Instantiate(_healthText, canvas);
-                _healthText.transform.position = Vector3.zero;
-            }
-            InitializeUI();
-        }
-    }
-    private void FadeScreen(float targetAlpha)
-    {
-        Color currentColor = _blackScreen.color;
-        float newAlpha = Mathf.MoveTowards(currentColor.a, targetAlpha, 2f * Time.deltaTime);
-        _blackScreen.color = new Color(currentColor.r, currentColor.g, currentColor.b, newAlpha);
-    }
 }

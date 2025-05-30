@@ -1,55 +1,69 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerCombat : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private AudioSource attackSFX;
-    private GameManager gameManager;
-    public float _cooldown, timer = 0;
-    private bool _canAttack = false;
 
-
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private int direction;
+    public bool IsAttacking { get; private set; } = false;
+    public Vector3 pos;
     void Start()
     {
-        gameManager = GameManager.Instance;
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && !_canAttack)
+        if (Input.GetMouseButtonDown(0))
         {
             Attack();
         }
-        if (_canAttack)
+        if (spriteRenderer.flipX)
         {
-            timer += Time.deltaTime;
-            if (timer >= _cooldown)
-            {
-                _canAttack = false;
-                animator.SetBool("Attack", false);
-                timer = 0;
-                gameManager.PlayerAttack = false;
-            }
+            direction = -1;
+        }
+        else
+        {
+            direction = 1;
         }
     }
     private void Attack()
     {
-        if (!_canAttack)
-        {
-            _canAttack = true;
-            animator.SetBool("Attack", true);
-            attackSFX.Play();
-            gameManager.PlayerAttack = true;
-        }
+        animator.SetTrigger("Attack");
+        SoundManager.Instance.PlaySoundEffect(StringConstant.SOUNDS.SWORD);
+
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag(StringConstant.ObjectTags.DEADZONE))
         {
-            animator.SetBool("Dead", true);
-            gameManager.UpdateHealth(100);
+            PlayerHealth playerHealth = GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                GameManager.Instance.FailLevel();
+            }
         }
+    }
+    public void DealDamage()
+    {
+        pos = transform.position + spriteRenderer.sprite.bounds.extents * direction / 2f;
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(pos, 0.5f);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            if (enemy.CompareTag(StringConstant.ObjectTags.ENEMY))
+            {
+                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(StringConstant.PlayerDetail.DAMAGE, GetComponent<PlayerHealth>());
+                }
+            }
+        }
+
     }
 }

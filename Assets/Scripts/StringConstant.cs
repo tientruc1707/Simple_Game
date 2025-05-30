@@ -14,7 +14,7 @@ public static class StringConstant
     }
     public static class PlayerDetail
     {
-        public static float DAMAGE = 50;
+        public static float DAMAGE = 30;
         public static float HEALTH = 100;
         public static float SPEED = 150;
         public static float JUMPFORCE = 250;
@@ -24,9 +24,11 @@ public static class StringConstant
         public const string MAINMENU = "Main Menu";
 
     }
-    public static class EnemyType
+    public static class SOUNDS
     {
-        public const string BEE = "Bee";
-        public const string BOAR = "Boar";
+        public const string MAIN_SOUND = "mainSound";
+        public const string GAME_BACKGROUND = "backgroundSound";
+        public const string PLAYER_RUN = "runSfx";
+        public const string SWORD = "swordSfx";
     }
 }

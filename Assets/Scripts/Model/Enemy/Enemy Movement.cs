@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : EnemyFunction
+public class EnemyMovement : EnemyHealth
 {
-    [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Vector3 startPosition;
+    private Rigidbody2D _rigidbody;
 
+    private Vector3 startPosition;
+
+    private bool isVulnerable = true;
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = transform.position;
-        InitializeEnemy();
     }
     private void FixedUpdate()
     {
@@ -53,5 +52,25 @@ public class EnemyMovement : EnemyFunction
     {
         _rigidbody.linearVelocity = new Vector2(-enemy.Speed, _rigidbody.linearVelocity.y);
         spriteRenderer.flipX = false;
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag(StringConstant.ObjectTags.PLAYER))
+        {
+            PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
+            if (isVulnerable)
+            {
+                playerHealth.TakeDamage(enemy.Damage);
+                StartCoroutine(InvulnerabilityCoroutine(2f));
+            }
+        }
+    }
+
+    IEnumerator InvulnerabilityCoroutine(float duration)
+    {
+        isVulnerable = false;
+        yield return new WaitForSeconds(duration);
+        isVulnerable = true;
     }
 }

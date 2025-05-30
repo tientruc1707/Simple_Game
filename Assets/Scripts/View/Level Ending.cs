@@ -5,22 +5,22 @@ using UnityEngine.UI;
 
 public class LevelEnding : MonoBehaviour
 {
-    [SerializeField] private Text _currentSocre;
+    [SerializeField] private Text _currentScore;
     [SerializeField] private Text _highScore;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
-        _currentSocre = GameObject.Find("CurrentScore").GetComponent<Text>();
-        _highScore = GameObject.Find("HighScore").GetComponent<Text>();
+        _currentScore = _currentScore.GetComponent<Text>();
+        _highScore = _highScore.GetComponent<Text>();
+        SetUpScore();
     }
-
-    // Update is called once per frame
-    void Update()
+    private void SetUpScore()
     {
-        if (!GameManager.Instance.Alive || GameManager.Instance.CompleteLevel)
+        _currentScore.text = DataManager.Instance.GetScore().ToString();
+        if (DataManager.Instance.GetScore() > DataManager.Instance.GetHighScore())
         {
-            _currentSocre.text = DataManager.Instance.GetScore().ToString();
-            _highScore.text = DataManager.Instance.GetHighScore().ToString();
+            DataManager.Instance.SetHighScore(DataManager.Instance.GetScore());
         }
+        _highScore.text = DataManager.Instance.GetHighScore().ToString();
     }
 }

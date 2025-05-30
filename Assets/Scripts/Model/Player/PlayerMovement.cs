@@ -8,9 +8,9 @@ public class PlayerMovvement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private AudioSource _runSFX;
 
-    public float moveForce = 200f;
+
+    public float speed = 200f;
     public float jumpForce = 250f;
     private bool isJumping = false;
     private bool isOnGround = false;
@@ -51,18 +51,18 @@ public class PlayerMovvement : MonoBehaviour
     private void Run()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
-        rb.linearVelocity = new Vector2(moveX * moveForce * Time.deltaTime,
-                            rb.linearVelocity.y > -4.0f ? rb.linearVelocity.y : -4.0f);
+        rb.linearVelocity = new Vector2(moveX * speed * Time.deltaTime, rb.linearVelocity.y);
 
         if (moveX > 0)
         {
             spriteRenderer.flipX = false;
+            //SoundManager.Instance.PlaySoundEffect(StringConstant.SOUNDS.PLAYER_RUN);
         }
         else if (moveX < 0)
         {
             spriteRenderer.flipX = true;
+            //SoundManager.Instance.PlaySoundEffect(StringConstant.SOUNDS.PLAYER_RUN);
         }
-        _runSFX.Play();
         animator.SetFloat("Running", Mathf.Abs(moveX));
     }
 
@@ -85,7 +85,7 @@ public class PlayerMovvement : MonoBehaviour
     {
         Color rayColor = Color.red;
         float rayLength = 1f;
-        Vector2 startPosition = (Vector2)transform.position - new Vector2(0, _collider.bounds.extents.y);
+        Vector2 startPosition = (Vector2)transform.position;
         int layerMask = LayerMask.GetMask(StringConstant.ObjectTags.GROUND);
         RaycastHit2D hit = Physics2D.Raycast(startPosition, Vector2.down, rayLength, layerMask);
 
